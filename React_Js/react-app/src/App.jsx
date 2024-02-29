@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import {
-  Grid,
   AppBar,
   Toolbar,
-  Button,
   Box,
   CssBaseline,
   ThemeProvider,
@@ -20,12 +18,14 @@ import LoginPage from "./LoginForm/Login";
 import RegisterPage from "./LoginForm/Register";
 import About from "./LoginForm/About";
 import Contact from "./LoginForm/Contact";
-import ProductCard from "./LoginForm/ProductCard";
-import SingleProduct from "./LoginForm/SingleProduct";
+// import ProductCard from "./LoginForm/ProductCard";
+// import SingleProduct from "./LoginForm/SingleProduct";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import MenuIcon from "@mui/icons-material/Menu";
 import MultiStepForm from "./Form/Index";
+import DataGridTable from "./components/DataGrid/DataGridTable";
+import SingleProductTable from "./components/DataGrid/SingleProductDataTable";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false); // State for dark mode
@@ -61,6 +61,7 @@ const App = () => {
     { title: "Contact", path: "/contact" },
     { title: "Form", path: "/form" },
     { title: "Shop", path: "/shop" },
+    { title: "Data", path: "/dataTable" },
   ];
 
   const handleTabChange = (event, newValue) => {
@@ -71,7 +72,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline /> {/* Normalize CSS */}
       <BrowserRouter>
-        <AppBar style={{ backgroundColor: "#1769aa" }}>
+        <AppBar position="static" style={{ backgroundColor: "#1769aa" }}>
           <Toolbar
             sx={{ p: 0.5, display: "flex", justifyContent: "space-around" }}
           >
@@ -174,17 +175,18 @@ const App = () => {
             </MenuItem>
           ))}
         </Menu>
-        
-          <Routes>
-            <Route path="/form" element={<MultiStepForm />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/shop" element={<ProductCard />} />
-            <Route path="/products/:id" element={<SingleProduct />} />
-          </Routes>
-        
+
+        <Routes>
+          <Route path="/form" element={<MultiStepForm />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* <Route path="/shop" element={<ProductCard />} /> */}
+          {/* <Route path="/products/:id" element={<SingleProduct />} /> */}
+          <Route path="/dataTable" element={<DataGridTable />} />
+          <Route path="/products/:id" element={<SingleProductTable />} />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );

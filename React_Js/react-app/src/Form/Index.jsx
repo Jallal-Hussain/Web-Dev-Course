@@ -14,15 +14,21 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
+  FormControl,
+  FormLabel,
 } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+// import dayjs from "dayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Values from "./InitialValue";
 import ValidationSchema from "./Validation";
 
 const MultiStepForm = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(false);
+  const [dateOfBirth, setDateOfBirth] = useState();
 
   const formik = useFormik({
     initialValues: Values,
@@ -54,7 +60,6 @@ const MultiStepForm = () => {
       activeStep === 1 &&
       !formik.errors.gender &&
       !formik.errors.address &&
-      
       !formik.errors.dateOfBirth
     ) {
       formik.handleSubmit();
@@ -260,26 +265,52 @@ const MultiStepForm = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Box display="flex" justifyContent="center">
+                      {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={["DatePicker"]}>
+                          <DatePicker
+                            label="Date of Birth"
+                            value={formik.values.dateOfBirth}
+                            onBlur={formik.handleBlur}
+                            onChange={(newValue) =>
+                              formik.setFieldValue("dateOfBirth", newValue)
+                            }
+                            TextFieldComponent={(props) => (
+                              <TextField {...props} fullWidth />
+                            )}
+                            error={
+                              formik.touched.dateOfBirth &&
+                              Boolean(formik.errors.dateOfBirth)
+                            }
+                            helperText={
+                              formik.touched.dateOfBirth &&
+                              formik.errors.dateOfBirth
+                            }
+                          />
+                        </DemoContainer>
+                      </LocalizationProvider> */}
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label="Date of Birth"
-                          value={formik.values.dateOfBirth}
-                          onBlur={formik.handleBlur}
-                          onChange={(newValue) =>
-                            formik.setFieldValue("dateOfBirth", newValue)
-                          }
-                          TextFieldComponent={(props) => (
-                            <TextField {...props} fullWidth />
-                          )}
-                          error={
-                            formik.touched.dateOfBirth &&
-                            Boolean(formik.errors.dateOfBirth)
-                          }
-                          helperText={
-                            formik.touched.dateOfBirth &&
-                            formik.errors.dateOfBirth
-                          }
-                        />
+                        <DemoContainer components={["DatePicker"]}>
+                          <DatePicker
+                            label="Date of Birth"
+                            value={dateOfBirth} // Use dateOfBirth state directly
+                            onBlur={formik.handleBlur}
+                            onChange={(newValue) => {
+                              setDateOfBirth(newValue); // Update dateOfBirth state directly
+                              formik.setFieldValue("dateOfBirth", newValue); // Update formik value
+                            }}
+                            // TextFieldComponent={(props) => (
+                            //   <TextField {...props} fullWidth />
+                            // )}
+                            error={
+                              formik.touched.dateOfBirth &&
+                              Boolean(formik.errors.dateOfBirth)
+                            }
+                            helperText={
+                              formik.touched.dateOfBirth &&
+                              formik.errors.dateOfBirth
+                            }
+                          />
+                        </DemoContainer>
                       </LocalizationProvider>
                     </Box>
                   </Grid>
@@ -290,36 +321,38 @@ const MultiStepForm = () => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Typography variant="h6" sx={{ ml: 2, mr: 2 }}>
-                        Gender :
-                      </Typography>
-                      <RadioGroup
-                        name="gender"
-                        value={formik.values.gender}
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.gender && Boolean(formik.errors.gender)
-                        }
-                      >
-                        <Box sx={{ display: "flex" }}>
-                          <FormControlLabel
-                            control={<Radio />}
-                            value="male"
-                            label="Male"
-                          />
-                          <FormControlLabel
-                            control={<Radio />}
-                            value="female"
-                            label="Female"
-                          />
-                          <FormControlLabel
-                            control={<Radio />}
-                            value="other"
-                            label="Other"
-                          />
-                        </Box>
-                      </RadioGroup>
+                      <FormControl component="fieldset">
+                        <FormLabel component="legend">Gender</FormLabel>
+                        <RadioGroup
+                          aria-labelledby="demo-controlled-radio-buttons-group"
+                          name="gender"
+                          value={formik.values.gender}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.gender &&
+                            Boolean(formik.errors.gender)
+                          }
+                        >
+                          <Box sx={{ display: "flex" }}>
+                            <FormControlLabel
+                              control={<Radio />}
+                              value="male"
+                              label="Male"
+                            />
+                            <FormControlLabel
+                              control={<Radio />}
+                              value="female"
+                              label="Female"
+                            />
+                            <FormControlLabel
+                              control={<Radio />}
+                              value="other"
+                              label="Other"
+                            />
+                          </Box>
+                        </RadioGroup>
+                      </FormControl>
                       <Box>
                         {formik.touched.gender && formik.errors.gender && (
                           <Typography variant="body2" color="error">

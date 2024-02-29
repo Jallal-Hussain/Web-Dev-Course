@@ -25,7 +25,7 @@ const ValidationSchema = Yup.object().shape({
     .matches(/^\d{11}$/, "Phone number must be 11 digits")
     .required("Phone Number is required"),
   address: Yup.string().required("Address is required"),
-  gender: Yup.string().required("required"),
+  // gender: Yup.string().required("required"),
   // dateOfBirth: Yup.string().required("required"),
 });
 

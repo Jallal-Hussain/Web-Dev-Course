@@ -8,8 +8,8 @@ const initialValues = {
   confirmPassword: "",
   phoneNumber: "",
   address: "",
-  // dateOfBirth: "",
-  // gender: "",
+  dateOfBirth: "01/10/1999",
+  gender: "male",
 };
 
 export default initialValues;
