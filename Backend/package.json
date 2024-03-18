@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "backend for Hotel Management system",
   "main": "express.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon server.js"
   },
