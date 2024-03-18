@@ -5,7 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 
-import uploadRoute from 'cookie-parser'
+// import uploadRoute from 'cookie-parser'
 
 const app = express()
 
