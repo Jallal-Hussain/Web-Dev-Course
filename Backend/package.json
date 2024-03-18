@@ -4,7 +4,7 @@
   "description": "backend for Hotel Management system",
   "main": "express.js",
   "scripts": {
-    "start": "nodemon express.js"
+    "start": "nodemon server.js"
   },
   "author": "Jalal Hussain",
   "license": "ISC",
