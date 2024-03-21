@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { login, register } from "./Controller/auth.js";
+import { login, register } from "./Controller/auth-controller.js";
+import authRoute from "./Routes/auth-router.js";
 
 const app = express();
 
@@ -15,8 +16,9 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Set endpoints
-app.post("/api/auth/register", register); // Assuming register handles POST requests
-app.post("/api/auth/login", login); // Assuming login handles POST requests
+app.post("/api/auth", authRoute); 
+app.post("/api/auth/register", register); 
+app.post("/api/auth/login", login); 
 
 const DatabaseConnection = async () => {
   try {
@@ -24,7 +26,7 @@ const DatabaseConnection = async () => {
     console.log("Connected to MongoDB.");
   } catch (error) {
     console.error("Connection Error:", error);
-    process.exit(1); // Exit the process if unable to connect to the database
+    process.exit(1);
   }
 };
 
@@ -37,7 +39,7 @@ mongoose.connection.on("error", (error) => {
 });
 
 app.get("/", (req, res) => {
-  res.json({ message: "Hello" });
+  res.json({ message: "Hello!" });
 });
 
 const port = process.env.PORT || 5000;
